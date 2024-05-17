@@ -104,9 +104,9 @@ class Button:
 
 reset=Button(win_width//2.5,win_height-200,250,150,(0,0,0),"grey")
 zoloto=Settings("gold.png",win_width-150,win_height-200,100,100)
-enemy=Enemy("enemy.png",600,win_height//2,100,100,8)        
-player=Player("hero.png",0,10,100,100,10)
-fon=Settings("fon.png",0,0,win_width,win_height)
+enemy=Enemy("enemy.png",600,win_height//1.82,80,80,7)        
+player=Player("hero.png",0,10,70,70,10)
+fon=Settings("fon.jpg",0,0,win_width,win_height)
 pygame.font.init()
 win=Text(win_width//7,win_height//3,"You win", 150,"green")
 lose=Text(win_width//7,win_height//3,"Loser", 150,"red")
@@ -116,9 +116,19 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.7)
 
 walls=[
-    Wall(206,70,10,400,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(206,70,10,410,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
     Wall(206,70,600,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
-    Wall(206,470,600,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    Wall(296,470,750,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(206,570,600,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(206,570,10,100,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(1036,470,10,200,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(900,570,140,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(296,155,10,210,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(296,155,800,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(396,250,850,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(296,355,820,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(906,70,600,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
+    Wall(556,365,10,110,(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
 ]
 
 while game:
