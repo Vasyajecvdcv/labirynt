@@ -1,5 +1,7 @@
+#Підключення модулів:
 import pygame
 import random
+#Створюємо вікно:
 win_width=1200
 win_height=700
 FPS = pygame.time.Clock()
@@ -8,6 +10,7 @@ window=pygame.display.set_mode((win_width,win_height))
 pygame.display.set_caption("Лабіринт")
 game = True
 finish=False
+#Головний клас "Налаштування"
 class Settings:
     def __init__(self,image,x,y,w,h):
         self.image=pygame.transform.scale(pygame.image.load(image),(w,h))
@@ -22,6 +25,7 @@ class Settings:
     def draw(self):
         window.blit(self.image,(self.rect.x,self.rect.y))
 
+#Клас гравця
 class Player(Settings):
     def __init__(self,image,x,y,w,h,s):
         super().__init__(image,x,y,w,h)
@@ -30,14 +34,14 @@ class Player(Settings):
 
     def move(self):
         keys=pygame.key.get_pressed()
-        if keys[pygame.K_UP] and self.rect.y>0:
+        if keys[pygame.K_w] and self.rect.y>0:
             self.rect.y-=self.speed
-        if keys[pygame.K_DOWN] and self.rect.y<win_height-self.rect.height:
+        if keys[pygame.K_s]and self.rect.y<win_height-self.rect.height:
             self.rect.y+=self.speed
-        if keys[pygame.K_LEFT] and self.rect.x>0:
+        if keys[pygame.K_a] and self.rect.x>0:
             self.rect.x-=self.speed
             self.direction=False
-        if keys[pygame.K_RIGHT] and self.rect.x<win_width-self.rect.width:
+        if keys[pygame.K_d] and self.rect.x<win_width-self.rect.width:
             self.rect.x+=self.speed
             self.direction=True
         if self.direction:
@@ -45,6 +49,7 @@ class Player(Settings):
         else:
             self.image=self.image_left
 
+#Клас ворога
 class Enemy(Player):
     def __init__(self,image,x,y,w,h,s):
         super().__init__(image,x,y,w,h,s)
@@ -63,7 +68,7 @@ class Enemy(Player):
         if self.direction==False:
             self.rect.x-=self.speed
             self.image=self.image_left
-
+#Класи стін, тексту і кнопки.
 class Wall:
     def __init__(self,x,y,w,h,color):
         self.rect=pygame.Rect(x,y,w,h)
@@ -102,6 +107,7 @@ class Button:
 
 
 
+#Створення екземпляри класів
 reset=Button(win_width//2.5,win_height-200,250,150,(0,0,0),"grey")
 zoloto=Settings("gold.png",win_width-150,win_height-200,100,100)
 enemy=Enemy("enemy.png",600,win_height//1.82,80,80,7)        
@@ -109,12 +115,14 @@ player=Player("hero.png",0,10,70,70,10)
 fon=Settings("fon.jpg",0,0,win_width,win_height)
 pygame.font.init()
 win=Text(win_width//7,win_height//3,"You win", 150,"green")
+level2=Text(win_width//7,win_height//3,"Level 2", 150,"green")
 lose=Text(win_width//7,win_height//3,"Loser", 150,"red")
 pygame.mixer.init()
 pygame.mixer.music.load("music.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.7)
 
+#Список стін
 walls=[
     Wall(206,70,10,410,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
     Wall(206,70,600,10,(random.randint(0,255),random.randint(0,255),random.randint(0,255))),
@@ -131,6 +139,7 @@ walls=[
     Wall(556,365,10,110,(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
 ]
 
+#Ігровий цикл
 while game:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
@@ -165,5 +174,7 @@ while game:
             fon.draw()
             win.draw()
             finish=True
+
+    
     pygame.display.flip()
     FPS.tick(60)
